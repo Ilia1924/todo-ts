@@ -3,6 +3,8 @@ import './App.css';
 import { TaskType, Todolist } from './Todolist';
 import { v1 } from 'uuid';
 import AddItemForm from './AddItemForm';
+import { AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography } from '@mui/material';
+import { Menu } from '@mui/icons-material';
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
 
@@ -61,6 +63,15 @@ function App() {
     }
   }
 
+  function changeTaskTitle(taskId: string, newTitle: string, todolistId: string) {
+    let tasks = tasksObj[todolistId];
+    let task = tasks.find(t => t.id === taskId);
+    if (task) {
+      task.title = newTitle;
+      setTasks({ ...tasksObj });
+    }
+  }
+
   function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
     let tasks = tasksObj[todolistId];
     let task = tasks.find(t => t.id === taskId);
@@ -70,11 +81,19 @@ function App() {
     }
   }
 
-  let removeTodoList = (todolistId: string) => {
+  function removeTodoList(todolistId: string) {
     let filteredTodolists = todolists.filter(tl => tl.id !== todolistId);
     setTodoLists(filteredTodolists);
     delete tasksObj[todolistId];
     setTasks({ ...tasksObj });
+  }
+
+  function changeTodolistTitle(todolistId: string, newTitle: string) {
+    let todolist = todolists.find(tl => tl.id === todolistId)
+    if (todolist) {
+      todolist.title = newTitle;
+      setTodoLists([...todolists])
+    }
   }
 
   function addTodolist(title: string) {
@@ -92,31 +111,57 @@ function App() {
 
   return (
     <div className="App">
-      <AddItemForm addItem={addTodolist} />
+      <AppBar position='static'>
+        <Toolbar>
+          <IconButton edge="start" color='inherit' aria-label='menu'>
+            <Menu />
+          </IconButton>
+          <Typography variant='h6'>
+            CLOVO
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
 
-      {
-        todolists.map(tl => {
-          let tasksForTodolist = tasksObj[tl.id];
-          if (tl.filter === 'completed') {
-            tasksForTodolist = tasksForTodolist.filter(t => t.isDone === true);
-          }
-          if (tl.filter === 'active') {
-            tasksForTodolist = tasksForTodolist.filter(t => t.isDone === false);
-          }
 
-          return <Todolist title={tl.title}
-            key={tl.id}
-            id={tl.id}
-            tasks={tasksForTodolist}
-            deleteTask={deleteTask}
-            changeFilter={changeFilter}
-            addTask={addTask}
-            changeTaskStatus={changeStatus}
-            filter={tl.filter}
-            removeTodolist={removeTodoList} />
-        })
-      }
-    </div>
+
+      </AppBar>
+      <Container fixed>
+        <Grid container style={{padding: "20px"}}>
+          <AddItemForm addItem={addTodolist} />
+        </Grid>
+        <Grid container>
+          {
+            todolists.map(tl => {
+              let tasksForTodolist = tasksObj[tl.id];
+              if (tl.filter === 'completed') {
+                tasksForTodolist = tasksForTodolist.filter(t => t.isDone === true);
+              }
+              if (tl.filter === 'active') {
+                tasksForTodolist = tasksForTodolist.filter(t => t.isDone === false);
+              }
+
+              return <Grid item>
+                <Paper style={{ padding: '20px', margin: "20px" }}>
+                  <Todolist title={tl.title}
+                    key={tl.id}
+                    id={tl.id}
+                    tasks={tasksForTodolist}
+                    deleteTask={deleteTask}
+                    changeFilter={changeFilter}
+                    addTask={addTask}
+                    changeTaskStatus={changeStatus}
+                    changeTaskTitle={changeTaskTitle}
+                    filter={tl.filter}
+                    removeTodolist={removeTodoList}
+                    changeTodolistTitle={changeTodolistTitle}
+                  />
+                </Paper>
+              </Grid>
+            })
+          }
+        </Grid>
+      </Container>
+    </div >
   );
 }
 
