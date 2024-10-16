@@ -19,7 +19,7 @@ export default function AddItemForm(props: AddItemFormPropsType) {
         setError(null);
         if (e.charCode === 13 && newTaskTitle !== "") {
             addTask();
-        }
+         }
     }
 
     const addTask = () => {
