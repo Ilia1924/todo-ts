@@ -14,7 +14,7 @@ export type TodolistType = {
   filter: FilterValuesType
 }
 
-type TaskStateType = {
+export type TaskStateType = {
   [key: string]: Array<TaskType>
 }
 
@@ -55,14 +55,6 @@ function App() {
     setTasks({ ...tasksObj })
   }
 
-  function changeFilter(value: FilterValuesType, todolistId: string) {
-    let todolist = todolists.find(tl => tl.id === todolistId);
-    if (todolist) {
-      todolist.filter = value
-      setTodoLists([...todolists])
-    }
-  }
-
   function changeTaskTitle(taskId: string, newTitle: string, todolistId: string) {
     let tasks = tasksObj[todolistId];
     let task = tasks.find(t => t.id === taskId);
@@ -71,13 +63,21 @@ function App() {
       setTasks({ ...tasksObj });
     }
   }
-
+  
   function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
     let tasks = tasksObj[todolistId];
     let task = tasks.find(t => t.id === taskId);
     if (task) {
       task.isDone = isDone;
       setTasks({ ...tasksObj });
+    }
+  }
+
+  function changeFilter(value: FilterValuesType, todolistId: string) {
+    let todolist = todolists.find(tl => tl.id === todolistId);
+    if (todolist) {
+      todolist.filter = value
+      setTodoLists([...todolists])
     }
   }
 
@@ -121,10 +121,8 @@ function App() {
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
-
-
-
       </AppBar>
+      
       <Container fixed>
         <Grid container style={{padding: "20px"}}>
           <AddItemForm addItem={addTodolist} />
