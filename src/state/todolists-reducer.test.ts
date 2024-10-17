@@ -69,12 +69,12 @@
 
 
 
-import { 
-    addTodolistActionCreator, 
-    changeFilterTodolistActionCreator, 
-    changeTodolistTitleActionCreator, 
-    removeTodolistActionCreator, 
-    todolistsReducer 
+import {
+    addTodolistActionCreator,
+    changeFilterTodolistActionCreator,
+    changeTodolistTitleActionCreator,
+    removeTodolistActionCreator,
+    todolistsReducer
 } from "./todolists-reducer";
 import { v1 } from "uuid";
 import { FilterValuesType, TodolistType } from "../App";
@@ -87,7 +87,7 @@ let startState: Array<TodolistType>;
 beforeEach(() => {
     todolistId1 = v1();
     todolistId2 = v1();
-    
+
     startState = [
         { id: todolistId1, title: 'what the matter', filter: 'all' },
         { id: todolistId2, title: 'what the mafake', filter: 'all' }

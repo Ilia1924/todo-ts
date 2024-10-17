@@ -9,17 +9,17 @@ test('user reducer should increment only age', () => {
 });
 
 test('user reducer should increment only childrenCount', () => {
-    const startState = {name:'ooo', age: 20, childrenCount: 2 };
+    const startState = { name: 'ooo', age: 20, childrenCount: 2 };
     const endState = userReducer(startState, { type: 'INCREMENT-CHILDREN-COUNT' })
 
-    expect(endState.childrenCount).toBe(3)
-    expect(endState.age).toBe(20)
+    expect(endState.childrenCount).toBe(3);
+    expect(endState.age).toBe(20);
 });
 
 test('user reducer should change name of user', () => {
     const startState = { name: 'Vasya', age: 20, childrenCount: 2 };
     const newName = 'Vova';
-    const endState = userReducer(startState, { type: 'CHANGE-NAME', newName: newName })
+    const endState = userReducer(startState, { type: 'CHANGE-NAME', newName: newName });
 
-    expect(endState.name).toBe(newName)
+    expect(endState.name).toBe(newName);
 })

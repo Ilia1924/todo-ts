@@ -14,6 +14,6 @@ test('ids must be equals', () => {
     const idFormTask = keys[0];
     const idFormTodoList = endTodolistState[0].id;
 
-    expect(idFormTask).toBe(action.todolistId)
-    expect(idFormTodoList).toBe(action.todolistId)
+    expect(idFormTask).toBe(action.todolistId);
+    expect(idFormTodoList).toBe(action.todolistId);
 });

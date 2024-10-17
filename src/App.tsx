@@ -63,7 +63,7 @@ function App() {
       setTasks({ ...tasksObj });
     }
   }
-  
+
   function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
     let tasks = tasksObj[todolistId];
     let task = tasks.find(t => t.id === taskId);
@@ -122,10 +122,10 @@ function App() {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
-      
+
       <Container fixed>
-        <Grid container style={{padding: "20px"}}>
-          <AddItemForm addItem={addTodolist} />
+        <Grid container style={{ padding: "20px" }}>
+          <AddItemForm addItem={addTodolist} key={v1()} />
         </Grid>
         <Grid container>
           {
