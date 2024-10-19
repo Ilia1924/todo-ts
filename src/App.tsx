@@ -21,10 +21,12 @@ export type TaskStateType = {
 function App() {
   let todolistId1 = v1();
   let todolistId2 = v1();
+  let todolistId3 = v1();
 
   let [todolists, setTodoLists] = useState<Array<TodolistType>>([
-    { id: todolistId1, title: 'what the matter', filter: 'all' },
-    { id: todolistId2, title: 'what the mafake', filter: 'all' }
+    { id: todolistId1, title: 'Films', filter: 'all' },
+    { id: todolistId2, title: 'Portugal', filter: 'all' },
+    { id: todolistId3, title: 'England', filter: 'all' }
   ]);
 
   const [tasksObj, setTasks] = useState<TaskStateType>({
@@ -36,7 +38,16 @@ function App() {
     ],
     [todolistId2]: [
       { id: v1(), title: "Sporting", isDone: false },
-      { id: v1(), title: "Benfica", isDone: true },
+      { id: v1(), title: "Benfica", isDone: false },
+      { id: v1(), title: "Porto", isDone: true },
+      { id: v1(), title: "Braga", isDone: false },
+    ],
+    [todolistId3]: [
+      { id: v1(), title: "Liverpool", isDone: false },
+      { id: v1(), title: "Arsenal", isDone: true },
+      { id: v1(), title: "MU", isDone: true },
+      { id: v1(), title: "MC", isDone: true },
+      { id: v1(), title: "Fulham", isDone: true },
     ]
   });
 
