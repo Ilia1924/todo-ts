@@ -1,6 +1,6 @@
 import { v1 } from "uuid";
 import { TaskStateType } from "../App";
-import { AddTodolistActionType, RemoveTodolistActionType } from './todolists-reducer'
+import { AddTodolistActionType, RemoveTodolistActionType, todolistId1, todolistId2, todolistId3 } from './todolists-reducer'
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK',
@@ -30,7 +30,30 @@ export type ChangeTaskTitleActionType = {
 
 type ActionsType = RemoveTaskActionType | addTaskActionType | ChangeTaskStatusActionType | ChangeTaskTitleActionType | AddTodolistActionType | RemoveTodolistActionType;
 
-export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskStateType => {
+const initialState: TaskStateType = {
+    [todolistId1]: [
+        { id: v1(), title: "Ziga-Zaga", isDone: true },
+        { id: v1(), title: "FightClub", isDone: true },
+        { id: v1(), title: "I.D.", isDone: false },
+        { id: v1(), title: "Firm", isDone: false },
+    ],
+    [todolistId2]: [
+        { id: v1(), title: "Sporting", isDone: false },
+        { id: v1(), title: "Benfica", isDone: false },
+        { id: v1(), title: "Porto", isDone: true },
+        { id: v1(), title: "Braga", isDone: false },
+    ],
+    [todolistId3]: [
+        { id: v1(), title: "Liverpool", isDone: false },
+        { id: v1(), title: "Arsenal", isDone: true },
+        { id: v1(), title: "MU", isDone: true },
+        { id: v1(), title: "MC", isDone: true },
+        { id: v1(), title: "Fulham", isDone: true },
+    ]
+}
+    ;
+
+export const tasksReducer = (state: TaskStateType = initialState, action: ActionsType): TaskStateType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             let stateCopy = { ...state };
@@ -80,7 +103,7 @@ export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskSta
             return stateCopy;
         }
         default:
-            throw new Error("what the type?");
+            return state;
     }
 };
 
