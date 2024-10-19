@@ -100,7 +100,7 @@ export const addTaskActionCreator = (title: string, todolistId: string): addTask
     }
 };
 
-export const ChangeTaskStatusActionCreator = (todolistId: string, isDone: boolean, taskId: string,): ChangeTaskStatusActionType => {
+export const ChangeTaskStatusActionCreator = (todolistId: string, taskId: string, isDone: boolean): ChangeTaskStatusActionType => {
     return {
         type: 'CHANGE-STATUS-TASK',
         todolistId: todolistId,

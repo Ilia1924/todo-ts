@@ -29,7 +29,7 @@ function AppWithRedusers() {
     { id: todolistId2, title: 'what the mafake', filter: 'all' }
   ]);
 
-  const [tasksObj, dispatchInTaskReduser] = useReducer(tasksReducer, {
+  const [tasksObj, dispatchInTaskReducer] = useReducer(tasksReducer, {
     [todolistId1]: [
       { id: v1(), title: "Ziga-Zaga", isDone: true },
       { id: v1(), title: "FightClub", isDone: true },
@@ -44,22 +44,22 @@ function AppWithRedusers() {
 
   function deleteTask(id: string, todolistId: string) {
     const action = removeTaskActionCreator(id, todolistId);
-    dispatchInTaskReduser(action);
+    dispatchInTaskReducer(action);
   }
 
   function addTask(title: string, todolistId: string) {
     const action = addTaskActionCreator(title, todolistId);
-    dispatchInTaskReduser(action);
+    dispatchInTaskReducer(action);
   }
 
   function changeTaskTitle(taskId: string, newTitle: string, todolistId: string) {
-    const action = ChangeTaskTitleActionCreator(taskId, newTitle, todolistId);
-    dispatchInTaskReduser(action);
+    const action = ChangeTaskTitleActionCreator(todolistId, taskId, newTitle);
+    dispatchInTaskReducer(action);
   }
 
   function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
-    const action = ChangeTaskStatusActionCreator(taskId, isDone, todolistId);
-    dispatchInTaskReduser(action);
+    const action = ChangeTaskStatusActionCreator(todolistId, taskId, isDone);
+    dispatchInTaskReducer(action);
   }
 
   function changeFilter(value: FilterValuesType, todolistId: string) {
@@ -70,7 +70,7 @@ function AppWithRedusers() {
   function removeTodoList(todolistId: string) {
     const action = removeTodolistActionCreator(todolistId);
     dispactInTodoListReducer(action);
-    dispatchInTaskReduser(action);
+    dispatchInTaskReducer(action);
 
   }
 
@@ -81,7 +81,7 @@ function AppWithRedusers() {
 
   function addTodolist(title: string) {
     const action = addTodolistActionCreator(title);
-    dispatchInTaskReduser(action);
+    dispatchInTaskReducer(action);
     dispactInTodoListReducer(action);
   }
 

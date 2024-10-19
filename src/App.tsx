@@ -76,8 +76,8 @@ function App() {
   function changeFilter(value: FilterValuesType, todolistId: string) {
     let todolist = todolists.find(tl => tl.id === todolistId);
     if (todolist) {
-      todolist.filter = value
-      setTodoLists([...todolists])
+      todolist.filter = value;
+      setTodoLists([...todolists]);
     }
   }
 
@@ -92,7 +92,7 @@ function App() {
     let todolist = todolists.find(tl => tl.id === todolistId)
     if (todolist) {
       todolist.title = newTitle;
-      setTodoLists([...todolists])
+      setTodoLists([...todolists]);
     }
   }
 

@@ -76,7 +76,7 @@ export const addTodolistActionCreator = (title: string): AddTodolistActionType =
     }
 };
 
-export const changeTodolistTitleActionCreator = (title: string, id: string): ChangeTodolistTitleActionType => {
+export const changeTodolistTitleActionCreator = (id: string, title: string): ChangeTodolistTitleActionType => {
     return {
         type: 'CHANGE-TODOLIST-TIILE',
         id: id,
