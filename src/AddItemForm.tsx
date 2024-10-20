@@ -1,13 +1,12 @@
-import { Button, IconButton, TextField } from "@mui/material";
-import { ChangeEvent, KeyboardEvent, useState } from "react"
+import { IconButton, TextField } from "@mui/material";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import AddTaskIcon from '@mui/icons-material/AddTask';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export default function AddItemForm(props: AddItemFormPropsType) {
-
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const [error, setError] = useState<string | null>(null);
 
@@ -16,13 +15,15 @@ export default function AddItemForm(props: AddItemFormPropsType) {
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
+        if (error !== null) {
+            setError(null);
+        }
         if (e.charCode === 13 && newTaskTitle !== "") {
-            addTask();
+            addItem();
         }
     }
 
-    const addTask = () => {
+    const addItem = () => {
         if (newTaskTitle.trim() !== "") {
             props.addItem(newTaskTitle.trim());
             setNewTaskTitle("");
@@ -42,8 +43,8 @@ export default function AddItemForm(props: AddItemFormPropsType) {
                 error={!!error}
                 helperText={error && <div className="error-message">Field is reqiered</div>}
             />
-            <IconButton onClick={addTask} color={'success'}>
+            <IconButton onClick={addItem} color={'success'}>
                 <AddTaskIcon></AddTaskIcon>
             </IconButton>
         </div>)
-}
+});

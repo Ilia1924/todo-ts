@@ -31,9 +31,9 @@ export let todolistId2 = v1();
 export let todolistId3 = v1();
 
 const initialState: Array<TodolistType> = [
-    { id: todolistId1, title: 'Films', filter: 'all' },
-    { id: todolistId2, title: 'Portugal', filter: 'all' },
-    { id: todolistId3, title: 'England', filter: 'all' }
+    // { id: todolistId1, title: 'Films', filter: 'all' },
+    // { id: todolistId2, title: 'Portugal', filter: 'all' },
+    // { id: todolistId3, title: 'England', filter: 'all' }
 ];
 
 export const todolistsReducer = (state: Array<TodolistType> = initialState, action: ActionType): Array<TodolistType> => {

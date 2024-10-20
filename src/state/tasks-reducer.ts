@@ -31,27 +31,26 @@ export type ChangeTaskTitleActionType = {
 type ActionsType = RemoveTaskActionType | addTaskActionType | ChangeTaskStatusActionType | ChangeTaskTitleActionType | AddTodolistActionType | RemoveTodolistActionType;
 
 const initialState: TaskStateType = {
-    [todolistId1]: [
-        { id: v1(), title: "Ziga-Zaga", isDone: true },
-        { id: v1(), title: "FightClub", isDone: true },
-        { id: v1(), title: "I.D.", isDone: false },
-        { id: v1(), title: "Firm", isDone: false },
-    ],
-    [todolistId2]: [
-        { id: v1(), title: "Sporting", isDone: false },
-        { id: v1(), title: "Benfica", isDone: false },
-        { id: v1(), title: "Porto", isDone: true },
-        { id: v1(), title: "Braga", isDone: false },
-    ],
-    [todolistId3]: [
-        { id: v1(), title: "Liverpool", isDone: false },
-        { id: v1(), title: "Arsenal", isDone: true },
-        { id: v1(), title: "MU", isDone: true },
-        { id: v1(), title: "MC", isDone: true },
-        { id: v1(), title: "Fulham", isDone: true },
-    ]
-}
-    ;
+    // [todolistId1]: [
+    //     { id: v1(), title: "Ziga-Zaga", isDone: true },
+    //     { id: v1(), title: "FightClub", isDone: true },
+    //     { id: v1(), title: "I.D.", isDone: false },
+    //     { id: v1(), title: "Firm", isDone: false },
+    // ],
+    // [todolistId2]: [
+    //     { id: v1(), title: "Sporting", isDone: false },
+    //     { id: v1(), title: "Benfica", isDone: false },
+    //     { id: v1(), title: "Porto", isDone: true },
+    //     { id: v1(), title: "Braga", isDone: false },
+    // ],
+    // [todolistId3]: [
+    //     { id: v1(), title: "Liverpool", isDone: false },
+    //     { id: v1(), title: "Arsenal", isDone: true },
+    //     { id: v1(), title: "MU", isDone: true },
+    //     { id: v1(), title: "MC", isDone: true },
+    //     { id: v1(), title: "Fulham", isDone: true },
+    // ]
+};
 
 export const tasksReducer = (state: TaskStateType = initialState, action: ActionsType): TaskStateType => {
     switch (action.type) {
@@ -72,23 +71,43 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
         }
 
         case 'CHANGE-STATUS-TASK': {
-            let stateCopy = { ...state };
-            let tasks = stateCopy[action.todolistId];
-            let task = tasks?.find(t => t.id === action.taskId);
-            if (task) {
-                task.isDone = action.isDone;
-            }
-            return stateCopy;
+
+            // let stateCopy = { ...state };
+            // let tasks = [...stateCopy[action.todolistId]];
+            // let task = tasks.find(t => t.id === action.taskId);
+            // if (task) {
+            //     task.isDone = action.isDone;
+            // }
+            // stateCopy[action.todolistId] = [...tasks]
+            // return stateCopy;
+
+            let todolistsTasks = state[action.todolistId];
+            state[action.todolistId] = todolistsTasks
+                .map(t => t.id === action.taskId
+                    ? { ...t, isDone: action.isDone }
+                    : t);
+
+            return ({ ...state })
         }
 
         case 'CHANGE-TITLE-TASK': {
-            let stateCopy = { ...state };
-            let tasks = stateCopy[action.todolistId];
-            let task = tasks?.find(t => t.id === action.taskId);
-            if (task) {
-                task.title = action.title;
-            }
-            return stateCopy;
+            
+            // let stateCopy = { ...state };
+            // let tasks = [...stateCopy[action.todolistId]];
+            // let task = tasks?.find(t => t.id === action.taskId);
+            // if (task) {
+            //     task.title = action.title;
+            // }
+            // stateCopy[action.todolistId] = tasks;
+            // return stateCopy;
+
+            let todolistsTasks = state[action.todolistId];
+            state[action.todolistId] = todolistsTasks
+                .map(t => t.id === action.taskId
+                    ? { ...t, title: action.title }
+                    : t);
+
+            return ({ ...state })
         }
 
         case 'ADD-TODOLIST': {
