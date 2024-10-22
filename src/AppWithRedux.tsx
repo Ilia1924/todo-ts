@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import './App.css';
 import { TaskType, Todolist } from './Todolist';
-import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
 import { AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography } from '@mui/material';
 import { Menu } from '@mui/icons-material';
@@ -84,14 +83,20 @@ function AppWithRedux() {
 
       <Container fixed>
         <Grid container style={{ padding: "20px" }}>
-          <AddItemForm addItem={addTodolist} key={v1()} />
+          <AddItemForm addItem={addTodolist} />
         </Grid>
         <Grid container>
           {
             todolists?.map(tl => {
               let allTodoListTasks = tasksObj[tl.id]
               let tasksForTodolist = allTodoListTasks;
-            
+
+              if (tl.filter === "active") {
+                tasksForTodolist = allTodoListTasks.filter(t => !t.isDone);
+              } else if (tl.filter === "completed") {
+                tasksForTodolist = allTodoListTasks.filter(t => t.isDone);
+              }
+
               return <Grid item>
                 <Paper style={{ padding: '20px', margin: "20px" }}>
                   <Todolist title={tl.title}

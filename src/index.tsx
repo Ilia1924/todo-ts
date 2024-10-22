@@ -13,11 +13,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
-    {/* <AppWithRedusers /> */}
     <Provider store={store}>
       <AppWithRedux />
     </Provider>
+    <App />
+    <AppWithRedusers />
   </React.StrictMode>
 );
 

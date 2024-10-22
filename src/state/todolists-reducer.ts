@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { FilterValuesType, TodolistType } from "../App";
+import { FilterValuesType, TodolistType } from "../AppWithRedux";
 
 export type RemoveTodolistActionType = {
     type: 'REMOVE-TODOLIST',
@@ -26,9 +26,9 @@ export type ChangeFilterTodolistActionType = {
 
 type ActionType = RemoveTodolistActionType | AddTodolistActionType | ChangeTodolistTitleActionType | ChangeFilterTodolistActionType;
 
-export let todolistId1 = v1();
-export let todolistId2 = v1();
-export let todolistId3 = v1();
+// export let todolistId1 = v1();
+// export let todolistId2 = v1();
+// export let todolistId3 = v1();
 
 const initialState: Array<TodolistType> = [
     // { id: todolistId1, title: 'Films', filter: 'all' },
@@ -51,19 +51,17 @@ export const todolistsReducer = (state: Array<TodolistType> = initialState, acti
         }
 
         case 'CHANGE-TODOLIST-TIILE': {
-            const todolist = state.find(tl => tl.id === action.id)
-            if (todolist) {
-                todolist.title = action.title;
-            }
-            return [...state];
+            return state.map(tl => tl.id === action.id
+                ? { ...tl, title: action.title }
+                : tl);
         }
 
         case 'CHANGE-TODOLIST-FILTER': {
-            const todolist = state.find(tl => tl.id === action.id);
-            if (todolist) {
-                todolist.filter = action.filter;
-            }
-            return [...state];
+            let newState = state.map(tl => tl.id === action.id
+                ? { ...tl, filter: action.filter }
+                : tl
+            )
+            return newState;
         }
 
         default:
@@ -94,10 +92,10 @@ export const changeTodolistTitleActionCreator = (id: string, title: string): Cha
     }
 };
 
-export const changeFilterTodolistActionCreator = (filter: FilterValuesType, id: string,): ChangeFilterTodolistActionType => {
+export const changeFilterTodolistActionCreator = (filter: FilterValuesType, id: string): ChangeFilterTodolistActionType => {
     return {
         type: 'CHANGE-TODOLIST-FILTER',
-        id: id,
-        filter: filter
+        filter: filter,
+        id: id
     }
 };

@@ -39,8 +39,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                 onKeyPress={onKeyPressHandler}
                 variant={'outlined'}
                 label={'Type value'}
-                // className={error ? 'error' : ''} 
-                error={!!error}
+                error={!!error} // className={error ? 'error' : ''} 
                 helperText={error && <div className="error-message">Field is reqiered</div>}
             />
             <IconButton onClick={addItem} color={'success'}>
