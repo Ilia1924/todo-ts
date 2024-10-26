@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:prettier/recommended", // Включает поддержку Prettier
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error", // ESLint покажет ошибку, если код не отформатирован Prettier
+    // "quotes": ["error", "single"],
+  },
+}
