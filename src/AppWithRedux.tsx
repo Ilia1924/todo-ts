@@ -9,6 +9,7 @@ import { ChangeTaskStatusActionCreator, ChangeTaskTitleActionCreator, addTaskAct
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { AppRootState } from './state/store';
+import { v1 } from 'uuid';
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
 
@@ -97,7 +98,7 @@ function AppWithRedux() {
                 tasksForTodolist = allTodoListTasks.filter(t => t.isDone);
               }
 
-              return <Grid item>
+              return <Grid item key={tl.id}>
                 <Paper style={{ padding: '20px', margin: "20px" }}>
                   <Todolist title={tl.title}
                     key={tl.id}

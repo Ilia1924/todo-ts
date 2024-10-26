@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useReducer} from 'react';
 import './App.css';
 import { TaskType, Todolist } from './Todolist';
 import { v1 } from 'uuid';
@@ -125,7 +125,7 @@ function AppWithRedusers() {
                 tasksForTodolist = tasksForTodolist.filter(t => t.isDone === false);
               }
 
-              return <Grid item>
+              return <Grid item key={tl.id}>
                 <Paper style={{ padding: '20px', margin: "20px" }}>
                   <Todolist title={tl.title}
                     key={tl.id}

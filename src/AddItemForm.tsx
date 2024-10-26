@@ -18,8 +18,11 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
         if (error !== null) {
             setError(null);
         }
+
         if (e.charCode === 13 && newTaskTitle !== "") {
             addItem();
+        } else {
+            setError('TITLE IS REQuERED')
         }
     }
 
@@ -28,7 +31,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
             props.addItem(newTaskTitle.trim());
             setNewTaskTitle("");
         } else {
-            setError('TITLE IS REQuERED')
+            setError('TITLE IS REQuERED');
         }
     }
 
@@ -39,8 +42,8 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                 onKeyPress={onKeyPressHandler}
                 variant={'outlined'}
                 label={'Type value'}
-                error={!!error} // className={error ? 'error' : ''} 
-                helperText={error && <div className="error-message">Field is reqiered</div>}
+                error={!!error}// className={error ? 'error' : ''} 
+                helperText={error && <span className="error-message">Field is reqiered</span>}
             />
             <IconButton onClick={addItem} color={'success'}>
                 <AddTaskIcon></AddTaskIcon>
